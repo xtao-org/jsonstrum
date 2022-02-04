@@ -1,8 +1,8 @@
+NOTE: THIS IS A SKETCH
+
 # JsonStrum.js
 
 A high-level wrapper over [JsonHilo](https://github.com/xtao-org/jsonhilo) which emits fully parsed objects and arrays.
-
-A sketch.
 
 ## Quickstart
 
