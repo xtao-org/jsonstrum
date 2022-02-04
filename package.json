@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "jsonhilo": "github:xtao-org/jsonhilo#semver:0.2.0"
+  }
+}
