@@ -3,17 +3,12 @@ import {JsonStrum} from 'https://cdn.jsdelivr.net/gh/xtao-org/jsonstrum@v0.1.0/m
 const s = JsonStrum({
   object: (object) => console.log('object', object),
   array: (array) => console.log('array', array),
+  level: 1,
 })
 
 s.push(`
-{
-  "name": "me", 
-  "sub": {"color": "blue"},
-  "nil": null
+[
+  {"name": "Alice", "color": "red", "count": 5},
+  {"name": "Bob", "color": "blue", "count": 4},
+]
 `)
-
-s.push(`,
-"bool": false
-}
-{"name": "you"}
-[1, 2, 3]`)

@@ -5,48 +5,53 @@ export const JsonStrum = ({
   array,
   level = 0
 } = {}) => {
-  const parents = []
+  const ancestors = []
   let parent = null
   let current = null
   let key = null
+  let currentLevel = 0
 
   const close = () => {
-    if (parents.length === level) {
+    --currentLevel
+    if (currentLevel === level) {
       if (Array.isArray(current)) {
         array?.(current)
       } else {
         object?.(current)
       }
-    } 
-    
-    if (parents.length === 0) {
       current = null
       parent = null
-    } else {
+    } else if (currentLevel > level) {
       if (Array.isArray(parent)) {
         parent.push(current)
       } else {
         parent[key] = current
       }
       current = parent
-      parent = parents.pop()
+      parent = ancestors.pop()
     }
   }
 
   return JsonHigh({
     openArray: () => {
-      if (current !== null) {
-        parents.push(parent)
-        parent = current
+      ++currentLevel
+      if (currentLevel > level) {
+        if (current !== null) {
+          ancestors.push(parent)
+          parent = current
+        }
+        current = []
       }
-      current = []
     },
     openObject: () => {
-      if (current !== null) {
-        parents.push(parent)
-        parent = current
+      ++currentLevel
+      if (currentLevel > level) {
+        if (current !== null) {
+          ancestors.push(parent)
+          parent = current
+        }
+        current = {}
       }
-      current = {}
     },
     closeArray: close,
     closeObject: close,

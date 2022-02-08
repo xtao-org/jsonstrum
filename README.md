@@ -9,8 +9,25 @@ A high-level wrapper over [JsonHilo](https://github.com/xtao-org/jsonhilo) which
 ### Deno or the browser
 
 ```js
+// see also quickstart.js
 // replace v0.1.0 below with latest/desired version
 import {JsonStrum} from 'https://cdn.jsdelivr.net/gh/xtao-org/jsonstrum@v0.1.0/mod.js'
 
-// see quickstart.js for example of use
+const s = JsonStrum({
+  object: (object) => console.log('object', object),
+  array: (array) => console.log('array', array),
+  // will only parse and emit objects at this level of nesting 
+  level: 1,
+})
+
+s.push(`
+[
+  {"name": "Alice", "color": "red", "count": 5},
+  {"name": "Bob", "color": "blue", "count": 4},
+]
+`)
+/* OUTPUT:
+object { name: "Alice", color: "red", count: 5 }
+object { name: "Bob", color: "blue", count: 4 }
+*/
 ```

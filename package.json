@@ -1,5 +1,18 @@
 {
   "type": "module",
+  "name": "jsonstrum",
+  "version": "0.1.0",
+  "main": "mod.js",
+  "private": true,
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xtao-org/jsonstrum.git"
+  },
+  "author": "Darius J Chuck",
+  "license": "MIT",
   "dependencies": {
     "jsonhilo": "github:xtao-org/jsonhilo#semver:0.2.0"
   }
