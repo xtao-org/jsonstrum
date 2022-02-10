@@ -2,6 +2,7 @@
   "type": "module",
   "name": "jsonstrum",
   "main": "dist/bundle.js",
+  "files": ["dist/"],
   "private": true,
   "author": "Darius J Chuck",
   "license": "MIT"
