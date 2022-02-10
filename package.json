@@ -1,5 +1,6 @@
 {
   "type": "module",
+  "name": "jsonstrum",
   "main": "dist/bundle.js",
   "private": true,
   "author": "Darius J Chuck",
