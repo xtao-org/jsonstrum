@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "main": "bundle.js",
+  "main": "dist/bundle.js",
   "private": true,
   "author": "Darius J Chuck",
   "license": "MIT"
