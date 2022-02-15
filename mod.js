@@ -55,12 +55,14 @@ export const JsonStrum = ({
     },
     closeArray: close,
     closeObject: close,
-    key: (k) => key = k,
+    key: (k) => { if (currentLevel > level) key = k },
     value: (value) => {
-      if (Array.isArray(current)) {
-        current.push(value)
-      } else {
-        current[key] = value
+      if (currentLevel > level) {
+        if (Array.isArray(current)) {
+          current.push(value)
+        } else {
+          current[key] = value
+        }
       }
     },
   })
