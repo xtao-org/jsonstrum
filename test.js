@@ -1,8 +1,9 @@
 import {JsonStrum} from './mod.js'
 
 const s = JsonStrum({
-  object: (object) => console.log('object', object),
-  array: (array) => console.log('array', array),
+  object: (object, p) => console.log('object', object, p),
+  array: (array, p) => console.log('array', array, p),
+  path: [{}, "sub"]
 })
 
 s.push(`
@@ -19,9 +20,9 @@ s.push(`,
 [1, 2, 3]`)
 
 const s2 = JsonStrum({
-  object: (object) => console.log('object', object),
-  array: (array) => console.log('array', array),
-  level: 1,
+  object: (object, p) => console.log('object', object, p),
+  array: (array, p) => console.log('array', array, p),
+  path: [{}, {}]
 })
 
 s2.push(`[
@@ -37,9 +38,9 @@ s2.push(`[
 
 
 const s3 = JsonStrum({
-  object: (object) => console.log('object', object),
-  array: (array) => console.log('array', array),
-  level: 3,
+  object: (object, p) => console.log('object', object, p),
+  array: (array, p) => console.log('array', array, p),
+  path: [{}, {}, {}, {}]
 })
 
 s3.push(`
