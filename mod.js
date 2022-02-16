@@ -1,8 +1,14 @@
 import { JsonHigh } from "./deps.js"
 
-// [{e: '*'}]
+// todo: recursive descent, e.g. [{}, "x", {depthRange: []}, "obj"]
+// depthRange: [0, 3] would be the same as ...([] | [{}] | [{}, {}] | [{}, {}, {}])
+// depthRange: [] would be unbounded
 
+// could also abstract the matcher into a module
 const matchPath = (path, expr) => {
+  // perhaps this should only check if prefix of path matches
+  // i.e. it's enough that path.length >= expr.length
+  // or maybe there should be a flag parameter which determines whether the match should be exact or just prefix
   if (path.length !== expr.length) return false
   for (let i = 0; i < expr.length; ++i) {
     const e = expr[i]
@@ -42,10 +48,11 @@ const matchPath = (path, expr) => {
   return true
 }
 
+// perhaps this should also support non-object values (primitives)
 export const JsonStrum = ({
   object,
   array,
-  // level = 0,
+  // perhaps rename to query or pathQuery or pathExpr
   path = [{}],
 } = {}) => {
   const ancestors = []
@@ -58,6 +65,7 @@ export const JsonStrum = ({
   const close = () => {
     --currentLevel
     currentPath.pop()
+    // if currentPath matches exactly
     if (currentLevel === level && matchPath(currentPath, path)) {
       if (Array.isArray(current)) {
         array?.(current, currentPath)
@@ -66,6 +74,7 @@ export const JsonStrum = ({
       }
       current = null
       parent = null
+    // if a prefix of currentPath matches
     } else if (currentLevel > level) {
       if (Array.isArray(parent)) {
         parent.push(current)
@@ -82,14 +91,12 @@ export const JsonStrum = ({
     if (typeof last === 'number') {
       currentPath[currentPath.length - 1] += 1
     }
-    //  else {
-    //   currentPath.push(0)
-    // }
   }
 
   return JsonHigh({
     openArray: () => {
       ++currentLevel
+      // if a prefix of current path matches
       if (currentLevel > level && matchPath(currentPath.slice(0, path.length), path)) {
         if (current !== null) {
           ancestors.push(parent)
@@ -102,6 +109,7 @@ export const JsonStrum = ({
     },
     openObject: () => {
       ++currentLevel
+      // if a prefix of current path matches
       if (currentLevel > level && matchPath(currentPath.slice(0, path.length), path)) {
         if (current !== null) {
           ancestors.push(parent)
@@ -119,6 +127,7 @@ export const JsonStrum = ({
       currentPath[currentPath.length - 1] = k
     },
     value: (value) => {
+      // if a prefix of current path matches
       if (currentLevel > level && matchPath(currentPath.slice(0, path.length), path)) {
         if (Array.isArray(current)) {
           current.push(value)
