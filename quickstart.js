@@ -1,9 +1,9 @@
-import {JsonStrum} from 'https://cdn.jsdelivr.net/gh/xtao-org/jsonstrum@v0.2.0/mod.js'
+import {JsonStrum} from './mod.js'
 
 const s = JsonStrum({
-  object: (object) => console.log('object', object),
-  array: (array) => console.log('array', array),
-  level: 1,
+  object: (object, p) => console.log('object', object, p),
+  array: (array, p) => console.log('array', array, p),
+  path: [{}, {}],
 })
 
 s.push(`
