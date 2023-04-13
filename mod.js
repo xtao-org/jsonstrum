@@ -8,11 +8,12 @@ export const JsonStrum = ({
   const ancestors = []
   let parent = null
   let current = null
-  let key = null
+  const path = []
   let currentLevel = 0
 
   const close = () => {
     --currentLevel
+    path.pop()
     if (currentLevel === level) {
       if (Array.isArray(current)) {
         array?.(current)
@@ -25,7 +26,7 @@ export const JsonStrum = ({
       if (Array.isArray(parent)) {
         parent.push(current)
       } else {
-        parent[key] = current
+        parent[path.at(-1)] = current
       }
       current = parent
       parent = ancestors.pop()
@@ -41,6 +42,7 @@ export const JsonStrum = ({
           parent = current
         }
         current = []
+        path.push(-1)
       }
     },
     openObject: () => {
@@ -51,17 +53,22 @@ export const JsonStrum = ({
           parent = current
         }
         current = {}
+        path.push("")
       }
     },
     closeArray: close,
     closeObject: close,
-    key: (k) => { if (currentLevel > level) key = k },
+    key: (k) => { 
+      if (currentLevel > level) {
+        path[path.length - 1] = k
+      }
+    },
     value: (value) => {
       if (currentLevel > level) {
         if (Array.isArray(current)) {
           current.push(value)
         } else {
-          current[key] = value
+          current[path.at(-1)] = value
         }
       }
     },
