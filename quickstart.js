@@ -1,4 +1,4 @@
-import {JsonStrum} from 'https://cdn.jsdelivr.net/gh/xtao-org/jsonstrum@v0.2.0/mod.js'
+import {JsonStrum} from 'https://cdn.jsdelivr.net/gh/xtao-org/jsonstrum@v0.2.2/mod.js'
 
 const s = JsonStrum({
   object: (object) => console.log('object', object),
