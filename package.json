@@ -1,9 +1,38 @@
 {
   "type": "module",
-  "name": "jsonstrum",
-  "main": "dist/bundle.js",
-  "files": ["dist/"],
-  "private": true,
-  "author": "Darius J Chuck",
-  "license": "MIT"
+  "name": "@xtao-org/jsonstrum",
+  "description": "A high-level wrapper over JsonHilo which emits fully parsed objects and arrays.",
+  "version": "0.3.0",
+  "main": "mod.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "deno test --allow-read"
+  },
+  "files": [
+    "mod.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xtao-org/jsonstrum.git"
+  },
+  "author": {
+    "name": "Darius J Chuck",
+    "url": "https://djedr.github.io"
+  },
+  "dependencies": {
+    "@xtao-org/jsonhilo": "^0.3.2"
+  },
+  "license": "MIT",
+  "keywords": [
+    "parser",
+    "javascript",
+    "json",
+    "streaming",
+    "stream",
+    "sax",
+    "objects",
+    "deno",
+    "jsonhilo",
+    "jsonstrum"
+  ]
 }

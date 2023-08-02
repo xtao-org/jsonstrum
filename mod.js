@@ -1,4 +1,4 @@
-import { JsonHigh } from "./deps.js"
+import { JsonHigh } from "@xtao-org/jsonhilo"
 
 export const JsonStrum = ({
   object,
