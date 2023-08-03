@@ -76,3 +76,72 @@ test('level 3', () => {
     'array', [ 33, 44 ]
   ])
 })
+
+test('deep', () => {
+  const acc = []
+  const s2 = JsonStrum({
+    object: (object) => acc.push('object', object),
+    array: (array) => acc.push('array', array),
+    level: 1,
+  })
+  
+  s2.chunk(`[
+    {
+      "id" : "1234",
+      "name" : "Name",
+      "key1" : {
+        "deepKey1" : "Some value",
+        "deepKey2" : "Some value",
+        "deepKey3" : [ ]
+      },
+      "key2" : "123456",
+      "key3" : false,
+      "key4" : {
+        "deepKey1" : "Test",
+        "deepKey2" : "1234"
+      },
+      "key5" : 0,
+      "address" : {
+        "country" : "Sweden",
+        "code" : "SE",
+        "postal_code" : "1234",
+        "postal_address" : "Some address",
+        "address" : [ "Some stuff", "More stuff" ],
+        "province" : "Stockholm",
+        "comune_number" : "1234"
+      }
+    }
+  ]`)
+
+  assert.deepEqual(acc, [
+    'object',
+    {
+      address: {
+        address: [
+          'Some stuff',
+          'More stuff'
+        ],
+        code: 'SE',
+        comune_number: '1234',
+        country: 'Sweden',
+        postal_address: 'Some address',
+        postal_code: '1234',
+        province: 'Stockholm'
+      },
+      id: '1234',
+      name: 'Name',
+      key1: {
+        deepKey1: 'Some value',
+        deepKey2: 'Some value',
+        deepKey3: []
+      },
+      key2: '123456',
+      key3: false,
+      key4: {
+        deepKey1: 'Test',
+        deepKey2: '1234'
+      },
+      key5: 0,
+    }
+  ])
+})
